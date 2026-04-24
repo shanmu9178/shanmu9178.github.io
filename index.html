@@ -11,112 +11,104 @@
     box-sizing: border-box;
 }
 body {
-    background: linear-gradient(-45deg,#0f172a,#1e293b,#253b56,#142840);
-    background-size: 400% 400%;
-    animation: gradientBg 14s ease infinite;
+    background: #1e293b; /* 匹配你截图的深色背景 */
     min-height: 100vh;
     font-family: "微软雅黑",sans-serif;
     color: #fff;
-    padding: 20px;
-}
-@keyframes gradientBg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    padding: 40px 20px;
 }
 .container {
-    max-width: 500px;
-    margin: 70px auto 0;
+    max-width: 600px;
+    margin: 0 auto;
     text-align: center;
 }
 .title {
-    font-size: 30px;
+    font-size: 28px;
     color: #93c5fd;
-    margin-bottom: 45px;
-    letter-spacing: 1px;
+    margin-bottom: 40px;
 }
-.link-item {
+.nav-item {
     display: block;
     text-decoration: none;
     color: #fff;
-    background: rgba255,255,255,0.08;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 18px;
-    padding: 15px 0;
-    margin: 13px 0;
-    transition: 0.25s;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 14px;
+    margin: 12px 0;
+    transition: 0.3s;
 }
-.link-item:hover {
-    background: rgba(255,255,255,0.15);
-    transform: translateY(-2px);
+.nav-item:hover {
+    background: rgba(255,255,255,0.05);
 }
-.music-wrap {
-    margin-top: 40px;
-}
-.music-btn {
-    padding: 11px 26px;
-    border: 1px solid rgba(147,197,253,0.3);
+
+/* 修复后的悬浮按钮：强制固定在右下角，不会被遮挡 */
+#musicBtn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 10px 20px;
     border-radius: 30px;
-    background: rgba(147,197,253,0.18);
+    border: 1px solid rgba(147,197,253,0.4);
+    background: rgba(30, 41, 59, 0.9);
     color: #93c5fd;
     backdrop-filter: blur(6px);
     cursor: pointer;
-    transition: 0.25s;
-}
-.music-btn:hover {
-    background: rgba(147,197,253,0.32);
+    z-index: 9999; /* 最高层级，保证在最前面 */
 }
 </style>
 </head>
 <body>
 <div class="container">
-    <h2 class="title">我的个人主页</h2>
+    <h1 class="title">我的个人主页</h1>
+    <a href="photo.html" class="nav-item">📷 照片相册</a>
+    <a href="talk.html" class="nav-item">💬 在线讨论</a>
+    <a href="music.html" class="nav-item">🎵 音乐页面</a>
+    <a href="reward.html" class="nav-item">🎁 打赏支持</a>
+    <a href="soft.html" class="nav-item">💻 软件分享</a>
+    <a href="web.html" class="nav-item">🌐 网站合集</a>
+    <a href="tool.html" class="nav-item">🛠️ 实用工具</a>
+    <a href="about.html" class="nav-item">👤 关于本站</a>
+</div>
 
-    <a href="photo.html" class="link-item">📷 照片相册</a>
-    <a href="talk.html" class="link-item">💬 在线讨论</a>
-    <a href="music.html" class="link-item">🎵 音乐页面</a>
-    <a href="reward.html" class="link-item">🎁 打赏支持</a>
-    <a href="soft.html" class="link-item">💻 软件分享</a>
-    <a href="web.html" class="link-item">🌐 网站合集</a>
-    <a href="tool.html" class="link-item">🛠️ 实用工具</a>
-    <a href="about.html" class="link-item">👤 关于本站</a>
+<!-- 全局无缝背景音乐 -->
+<audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
+    <source src="bgm.mp3" type="audio/mpeg">
 
-    /div>
- <!-- 全局无缝背景音乐 -->
- <audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
-     <source src="bgm.mp3" type="audio/mpeg">
- <button id="musicBtn">播放音乐</button>
- <script>
- const bgm = document.getElementById('globalBgm');
- const musicBtn = document.getElementById('musicBtn');
- const state = localStorage.getItem('globalBgmState');
- // 恢复播放状态
- if(state === 'play'){
-     bgm.play().catch(e=>{});
-     musicBtn.innerText = "暂停音乐";
- }else{
-     musicBtn.innerText = "播放音乐";
- }
- // 状态监听
- bgm.addEventListener('play', ()=>{
-     localStorage.setItem('globalBgmState','play');
-     musicBtn.innerText = "暂停音乐";
- })
- bgm.addEventListener('pause', ()=>{
-     localStorage.setItem('globalBgmState','pause');
-     musicBtn.innerText = "播放音乐";
- })
- // 开关按钮
- musicBtn.onclick = () => {
-     if(bgm.paused){
-         bgm.play();
-     }else{
-         bgm.pause();
-     }
- }
- </script>
+<!-- 悬浮音乐按钮 -->
+<button id="musicBtn">播放音乐</button>
 
+<script>
+const bgm = document.getElementById('globalBgm');
+const musicBtn = document.getElementById('musicBtn');
+const state = localStorage.getItem('globalBgmState');
+
+// 恢复播放状态
+if(state === 'play'){
+    bgm.play().catch(e=>{});
+    musicBtn.innerText = "暂停音乐";
+}else{
+    musicBtn.innerText = "播放音乐";
+}
+
+// 状态监听
+bgm.addEventListener('play', ()=>{
+    localStorage.setItem('globalBgmState','play');
+    musicBtn.innerText = "暂停音乐";
+})
+bgm.addEventListener('pause', ()=>{
+    localStorage.setItem('globalBgmState','pause');
+    musicBtn.innerText = "播放音乐";
+})
+
+// 开关按钮
+musicBtn.onclick = () => {
+    if(bgm.paused){
+        bgm.play();
+    }else{
+        bgm.pause();
+    }
+}
+</script>
 </body>
 </html>

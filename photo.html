@@ -2,30 +2,21 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>照片相册</title>
 <style>
 * {margin: 0;padding: 0;box-sizing: border-box;}
 body {
-    background: linear-gradient(-45deg,#0f172a,#1e293b,#253b56,#142840);
-    background-size: 400% 400%;
-    animation: gradientBg 14s ease infinite;
+    background: #1e293b;
     min-height: 100vh;
     font-family: "微软雅黑",sans-serif;
     color: #fff;padding: 20px;
 }
-@keyframes gradientBg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
 .container {max-width: 500px;margin: 40px auto 0;}
 .back-btn {
     display: inline-block;text-decoration: none;color: #93c5fd;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 18px;padding: 10px 20px;margin-bottom: 30px;
+    border: 1px solid rgba(147,197,253,0.4);
+    border-radius: 20px;padding: 8px 20px;margin-bottom: 30px;
 }
 h2 {text-align: center;color: #93c5fd;margin-bottom: 20px;}
 .photo-grid {
@@ -36,7 +27,6 @@ h2 {text-align: center;color: #93c5fd;margin-bottom: 20px;}
     width: 100%;border-radius: 12px;
     object-fit: cover;
 }
-.tip {color:#ccc;text-align:center;margin:10px 0;font-size:14px;}
 </style>
 </head>
 <body>
@@ -45,29 +35,35 @@ h2 {text-align: center;color: #93c5fd;margin-bottom: 20px;}
     <h2>照片相册</h2>
     <div class="photo-grid" id="photoGrid"></div>
 </div>
-!-- 全局无缝音乐 -->
- <audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
-     <source src="bgm.mp3" type="audio/mpeg">
- <script>
- const bgm = document.getElementById('globalBgm');
- if(localStorage.getItem('globalBgmState') === 'play'){
-     bgm.play().catch(()=>{});
- }
- bgm.addEventListener('play',()=>localStorage.setItem('globalBgmState','play'));
- bgm.addEventListener('pause',()=>localStorage.setItem('globalBgmState','pause'));
- // 在此填写你的图片名
- const imgList = [
-     "IMG_20260424_224337.jpg","IMG_20260424_224308.jpg","IMG_20260424_224243.jpg","IMG_20260424_224227.jpg","IMG_20260424_224201.jpg","IMG_20260424_224438.jpg","IMG_20260424_224621.jpg","IMG_20260424_224640.jpg"
- ];
- ];
- ];
- const grid = document.getElementById("photoGrid");
- imgList.forEach(n=>{
-     let i = document.createElement("img");
-     i.src = "images/"+n;
-     grid.appendChild(i);
- })
- </script>
 
+<audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
+    <source src="bgm.mp3" type="audio/mpeg">
+
+
+<script>
+const bgm = document.getElementById('globalBgm');
+if(localStorage.getItem('globalBgmState') === 'play'){
+    bgm.play().catch(()=>{});
+}
+bgm.addEventListener('play',()=>localStorage.setItem('globalBgmState','play'));
+bgm.addEventListener('pause',()=>localStorage.setItem('globalBgmState','pause'));
+
+// 图片路径改成 assets/images/
+const imgList = [
+    "IMG_20260424_224337.jpg",
+    "IMG_20260424_224308.jpg",
+    "IMG_20260424_224243.jpg",
+    "IMG_20260424_224227.jpg"
+];
+
+const grid = document.getElementById("photoGrid");
+imgList.forEach(n=>{
+    let i = document.createElement("img");
+    // 关键修改：加上 assets/
+    i.src = "assets/images/"+n;
+    i.loading = "lazy";
+    grid.appendChild(i);
+})
+</script>
 </body>
 </html>
