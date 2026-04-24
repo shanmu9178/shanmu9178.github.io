@@ -52,10 +52,7 @@ h2 {
     <h2>网站合集</h2>
 </div>
 
-<audio id="bgAudio" loop preload="metadata" style="display:none;">
-    <source src="bgm.mp3" type="audio/mpeg">
 
-<script>
 const audio = document.getElementById('bgAudio');
 let isPlay = localStorage.getItem('musicPlay') === 'true';
 if(isPlay) audio.play().catch(e=>{});

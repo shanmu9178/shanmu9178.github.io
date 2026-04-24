@@ -45,30 +45,27 @@ h2 {text-align: center;color: #93c5fd;margin-bottom: 20px;}
     <h2>照片相册</h2>
     <div class="photo-grid" id="photoGrid"></div>
 </div>
+!-- 全局无缝音乐 -->
+ <audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
+     <source src="bgm.mp3" type="audio/mpeg">
+ <script>
+ const bgm = document.getElementById('globalBgm');
+ if(localStorage.getItem('globalBgmState') === 'play'){
+     bgm.play().catch(()=>{});
+ }
+ bgm.addEventListener('play',()=>localStorage.setItem('globalBgmState','play'));
+ bgm.addEventListener('pause',()=>localStorage.setItem('globalBgmState','pause'));
+ // 在此填写你的图片名
+ const imgList = [
+     "1.jpg","2.jpg","3.jpg"
+ ];
+ const grid = document.getElementById("photoGrid");
+ imgList.forEach(n=>{
+     let i = document.createElement("img");
+     i.src = "images/"+n;
+     grid.appendChild(i);
+ })
+ </script>
 
-<audio id="bgAudio" loop preload="metadata" style="display:none;">
-    <source src="bgm.mp3" type="audio/mpeg">
-
-
-<script>
-// 背景音乐续播
-const audio = document.getElementById('bgAudio');
-let isPlay = localStorage.getItem('musicPlay') === 'true';
-if(isPlay) audio.play().catch(()=>{});
-
-// ========== 在这里手动添加图片文件名 ==========
-const imgList = [
-    "776519535854.png","2.jpg","3.jpg","4.jpg"
-];
-// ===========================================
-
-const grid = document.getElementById("photoGrid");
-imgList.forEach(name=>{
-    let img = document.createElement("img");
-    img.src = "images/" + name;
-    img.loading = "lazy";
-    grid.appendChild(img);
-})
-</script>
 </body>
 </html>

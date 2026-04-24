@@ -83,32 +83,40 @@ body {
     <a href="tool.html" class="link-item">🛠️ 实用工具</a>
     <a href="about.html" class="link-item">👤 关于本站</a>
 
-    <div class="music-wrap">
-        <button id="audioBtn" class="music-btn">播放背景音乐</button>
-    </div>
-</div>
+    /div>
+ <!-- 全局无缝背景音乐 -->
+ <audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
+     <source src="bgm.mp3" type="audio/mpeg">
+ <button id="musicBtn">播放音乐</button>
+ <script>
+ const bgm = document.getElementById('globalBgm');
+ const musicBtn = document.getElementById('musicBtn');
+ const state = localStorage.getItem('globalBgmState');
+ // 恢复播放状态
+ if(state === 'play'){
+     bgm.play().catch(e=>{});
+     musicBtn.innerText = "暂停音乐";
+ }else{
+     musicBtn.innerText = "播放音乐";
+ }
+ // 状态监听
+ bgm.addEventListener('play', ()=>{
+     localStorage.setItem('globalBgmState','play');
+     musicBtn.innerText = "暂停音乐";
+ })
+ bgm.addEventListener('pause', ()=>{
+     localStorage.setItem('globalBgmState','pause');
+     musicBtn.innerText = "播放音乐";
+ })
+ // 开关按钮
+ musicBtn.onclick = () => {
+     if(bgm.paused){
+         bgm.play();
+     }else{
+         bgm.pause();
+     }
+ }
+ </script>
 
-<audio id="bgAudio" loop preload="metadata">
-    <source src="bgm.mp3" type="audio/mpeg">
-
-
-<script>
-const audio = document.getElementById('bgAudio');
-const btn = document.getElementById('audioBtn');
-let isPlay = false;
-
-btn.addEventListener('click',()=>{
-    if(!isPlay){
-        audio.play().then(()=>{
-            isPlay = true;
-            btn.innerText = "暂停背景音乐";
-        })
-    }else{
-        audio.pause();
-        isPlay = false;
-        btn.innerText = "播放背景音乐";
-    }
-})
-</script>
 </body>
 </html>
