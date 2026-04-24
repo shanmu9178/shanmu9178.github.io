@@ -2,41 +2,62 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>打赏支持</title>
 <style>
-* {margin: 0;padding: 0;box-sizing: border-box;}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-    background: linear-gradient(-45deg,#0f172a,#1e293b,#253b56,#142840);
-    background-size: 400% 400%;
-    animation: gradientBg 14s ease infinite;
+    background: #1e293b;
     min-height: 100vh;
     font-family: "微软雅黑",sans-serif;
-    color: #fff;padding: 20px;
+    color: #fff;
+    padding: 40px 20px;
 }
-@keyframes gradientBg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
 }
-.container {max-width: 500px;margin: 40px auto 0;}
 .back-btn {
-    display: inline-block;text-decoration: none;color: #93c5fd;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 18px;padding: 10px 20px;margin-bottom: 30px;
+    display: inline-block;
+    text-decoration: none;
+    color: #93c5fd;
+    border: 1px solid rgba(147,197,253,0.4);
+    border-radius: 20px;
+    padding: 8px 20px;
+    margin-bottom: 30px;
 }
-h2 {text-align: center;color: #93c5fd;margin-bottom: 20px;}
+h2 {
+    color: #93c5fd;
+    margin-bottom: 20px;
+}
 .photo-grid {
-    display: grid;grid-template-columns: 1fr 1fr;
-    gap: 10px;margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
 }
 .photo-grid img {
-    width: 100%;border-radius: 12px;
+    width: 100%;
+    border-radius: 12px;
     object-fit: cover;
 }
-.tip {color:#ccc;text-align:center;margin:10px 0;font-size:14px;}
+.music-wrap {
+    margin-top: 30px;
+}
+.music-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(147,197,253,0.4);
+    background: rgba(30, 41, 59, 0.9);
+    color: #93c5fd;
+    font-size: 14px;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -44,28 +65,57 @@ h2 {text-align: center;color: #93c5fd;margin-bottom: 20px;}
     <a href="index.html" class="back-btn">← 返回主页</a>
     <h2>打赏支持</h2>
     <div class="photo-grid" id="photoGrid"></div>
-</div>
-全局无缝音乐 -->
- <audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
-     <source src="bgm.mp3" type="audio/mpeg">
- <script>
- const bgm = document.getElementById('globalBgm');
- if(localStorage.getItem('globalBgmState') === 'play'){
-     bgm.play().catch(()=>{});
- }
- bgm.addEventListener('play',()=>localStorage.setItem('globalBgmState','play'));
- bgm.addEventListener('pause',()=>localStorage.setItem('globalBgmState','pause'));
- // 在此填写你的打赏图片名
- const imgList = [
-     "pay1.jpg","pay2.jpg"
- ];
- const grid = document.getElementById("photoGrid");
- imgList.forEach(n=>{
-     let i = document.createElement("img");
-     i.src = "reward/"+n;
-     grid.appendChild(i);
- })
- </script>
 
+    <!-- 内嵌音乐按钮 -->
+    <div class="music-wrap">
+        <button class="music-btn" id="musicBtn">播放音乐</button>
+    </div>
+</div>
+
+<!-- 全局无缝音乐 -->
+<audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
+    <source src="bgm.mp3" type="audio/mpeg">
+
+<script>
+const bgm = document.getElementById('globalBgm');
+const musicBtn = document.getElementById('musicBtn');
+const state = localStorage.getItem('globalBgmState');
+
+if(state === 'play'){
+    bgm.play().catch(e=>{});
+    musicBtn.innerText = "暂停音乐";
+}else{
+    musicBtn.innerText = "播放音乐";
+}
+
+bgm.addEventListener('play', ()=>{
+    localStorage.setItem('globalBgmState','play');
+    musicBtn.innerText = "暂停音乐";
+})
+bgm.addEventListener('pause', ()=>{
+    localStorage.setItem('globalBgmState','pause');
+    musicBtn.innerText = "播放音乐";
+})
+
+musicBtn.onclick = () => {
+    if(bgm.paused){
+        bgm.play();
+    }else{
+        bgm.pause();
+    }
+}
+
+// 打赏图片列表（请修改为你的图片文件名）
+const imgList = [
+    "pay1.jpg",
+    "pay2.jpg"
+];
+const grid = document.getElementById("photoGrid");
+imgList.forEach(n=>{
+    let i = document.createElement("img");
+    i.src = "assets/reward/"+n;
+    grid.appendChild(i);
+})
+</script>
 </body>
 </html>

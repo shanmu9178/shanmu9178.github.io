@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>音乐页面</title>
 <style>
 * {
@@ -11,38 +11,41 @@
     box-sizing: border-box;
 }
 body {
-    background: linear-gradient(-45deg,#0f172a,#1e293b,#253b56,#142840);
-    background-size: 400% 400%;
-    animation: gradientBg 14s ease infinite;
+    background: #1e293b;
     min-height: 100vh;
     font-family: "微软雅黑",sans-serif;
     color: #fff;
-    padding: 20px;
-}
-@keyframes gradientBg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    padding: 40px 20px;
 }
 .container {
-    max-width: 500px;
-    margin: 40px auto 0;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
 }
 .back-btn {
     display: inline-block;
     text-decoration: none;
     color: #93c5fd;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 18px;
-    padding: 10px 20px;
+    border: 1px solid rgba(147,197,253,0.4);
+    border-radius: 20px;
+    padding: 8px 20px;
     margin-bottom: 30px;
 }
 h2 {
-    text-align: center;
     color: #93c5fd;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+.music-wrap {
+    margin-top: 30px;
+}
+.music-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(147,197,253,0.4);
+    background: rgba(30, 41, 59, 0.9);
+    color: #93c5fd;
+    font-size: 14px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -50,17 +53,46 @@ h2 {
 <div class="container">
     <a href="index.html" class="back-btn">← 返回主页</a>
     <h2>音乐页面</h2>
+    <!-- 在这里放你的音乐列表或播放器 -->
+
+    <!-- 内嵌音乐按钮 -->
+    <div class="music-wrap">
+        <button class="music-btn" id="musicBtn">播放音乐</button>
+    </div>
 </div>
 
+<!-- 全局无缝音乐 -->
+<audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
+    <source src="bgm.mp3" type="audio/mpeg">
 
+<script>
+const bgm = document.getElementById('globalBgm');
+const musicBtn = document.getElementById('musicBtn');
+const state = localStorage.getItem('globalBgmState');
 
-<audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
-     <source src="bgm.mp3" type="audio/mpeg">
- <script>
- const bgm = document.getElementById('globalBgm');
- if(localStorage.getItem('globalBgmState') === 'play')bgm.play().catch(()=>{});
- bgm.onplay=()=>localStorage.setItem('globalBgmState','play');
- bgm.onpause=()=>localStorage.setItem('globalBgmState','pause');
- </script>
+if(state === 'play'){
+    bgm.play().catch(e=>{});
+    musicBtn.innerText = "暂停音乐";
+}else{
+    musicBtn.innerText = "播放音乐";
+}
+
+bgm.addEventListener('play', ()=>{
+    localStorage.setItem('globalBgmState','play');
+    musicBtn.innerText = "暂停音乐";
+})
+bgm.addEventListener('pause', ()=>{
+    localStorage.setItem('globalBgmState','pause');
+    musicBtn.innerText = "播放音乐";
+})
+
+musicBtn.onclick = () => {
+    if(bgm.paused){
+        bgm.play();
+    }else{
+        bgm.pause();
+    }
+}
+</script>
 </body>
 </html>

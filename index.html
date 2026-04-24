@@ -11,11 +11,11 @@
     box-sizing: border-box;
 }
 body {
-    background: #1e293b; /* 匹配你截图的深色背景 */
+    background: #1e293b;
     min-height: 100vh;
     font-family: "微软雅黑",sans-serif;
     color: #fff;
-    padding: 40px 20px;
+    padding: 60px 20px 40px;
 }
 .container {
     max-width: 600px;
@@ -41,20 +41,18 @@ body {
 .nav-item:hover {
     background: rgba(255,255,255,0.05);
 }
-
-/* 修复后的悬浮按钮：强制固定在右下角，不会被遮挡 */
-#musicBtn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
+/* 按钮放在页面底部，和其他元素一样 */
+.music-wrap {
+    margin-top: 30px;
+}
+.music-btn {
     padding: 10px 20px;
     border-radius: 30px;
     border: 1px solid rgba(147,197,253,0.4);
     background: rgba(30, 41, 59, 0.9);
     color: #93c5fd;
-    backdrop-filter: blur(6px);
+    font-size: 14px;
     cursor: pointer;
-    z-index: 9999; /* 最高层级，保证在最前面 */
 }
 </style>
 </head>
@@ -69,14 +67,16 @@ body {
     <a href="web.html" class="nav-item">🌐 网站合集</a>
     <a href="tool.html" class="nav-item">🛠️ 实用工具</a>
     <a href="about.html" class="nav-item">👤 关于本站</a>
+
+    <!-- 按钮放在这里，页面底部，预览里一定能看到 -->
+    <div class="music-wrap">
+        <button class="music-btn" id="musicBtn">播放音乐</button>
+    </div>
 </div>
 
 <!-- 全局无缝背景音乐 -->
-<audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
+<audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
     <source src="bgm.mp3" type="audio/mpeg">
-
-<!-- 悬浮音乐按钮 -->
-<button id="musicBtn">播放音乐</button>
 
 <script>
 const bgm = document.getElementById('globalBgm');
