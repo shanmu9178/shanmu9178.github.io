@@ -1,139 +1,109 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>照片相册</title>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    background: #1e293b;
-    min-height: 100vh;
-    font-family: "微软雅黑",sans-serif;
-    color: #fff;
-    padding: 40px 20px;
-}
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-.back-btn {
-    display: inline-block;
-    text-decoration: none;
-    color: #93c5fd;
-    border: 1px solid rgba(147,197,253,0.4);
-    border-radius: 20px;
-    padding: 8px 20px;
-    margin-bottom: 30px;
-}
-h2 {
-    color: #93c5fd;
-    margin-bottom: 20px;
-}
-/* 强制添加 photo-grid 样式 */
-.photo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-.photo-grid img {
-    width: 100%;
-    border-radius: 12px;
-    object-fit: cover;
-}
-.music-wrap {
-    margin-top: 30px;
-}
-.music-btn {
-    padding: 10px 20px;
-    border-radius: 30px;
-    border: 1px solid rgba(147,197,253,0.4);
-    background: rgba(30, 41, 59, 0.9);
-    color: #93c5fd;
-    font-size: 14px;
-    cursor: pointer;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的相册</title>
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        /* 图片网格布局 */
+        #photoGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #photoGrid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        #photoGrid img:hover {
+            transform: scale(1.05);
+        }
+        /* 加载失败的图片样式 */
+        .img-error {
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <a href="index.html" class="back-btn">← 返回主页</a>
-    <h2>照片相册</h2>
-    <!-- 强制添加 photoGrid 容器 -->
-    <div class="photo-grid" id="photoGrid"></div>
+    <h1>我的相册</h1>
+    <div id="photoGrid"></div>
 
-    <div class="music-wrap">
-        <button class="music-btn" id="musicBtn">播放音乐</button>
-    </div>
-</div>
+    <script>
+        // ========== 这里是你所有的图片列表，已经按截图全部补全 ==========
+        const imgList = [
+            "776519535854.png",
+            "IMG_20260424_224201.jpg",
+            "IMG_20260424_224227.jpg",
+            "IMG_20260424_224243.jpg",
+            "IMG_20260424_224308.jpg",
+            "IMG_20260424_224337.jpg",
+            "IMG_20260424_224438.jpg",
+            "IMG_20260424_224621.jpg",
+            "IMG_20260424_224640.jpg",
+            "IMG_20260425_073524.png",
+            "Image_1777029145647_867.jpg",
+            "Screenshot_2026-02-07-13-31-24-23_008f17477daa201618afb90ad83e4b1d.jpg",
+            "Screenshot_2026-02-18-12-28-23-08_008f17477daa201618afb90ad83e4b1d.jpg",
+            "Screenshot_2026-03-28-20-31-42-14_73230ea9d8560975a5358fd7.jpg",
+            "Screenshot_2026-04-02-22-08-35-88_b783bf344239542886fee7b48fa4b892.jpg",
+            "Screenshot_2026-04-19-00-09-25-73_9d26c6446fd7bb8e41d99b6262b17def.jpg"
+        ];
 
-<audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
-    <source src="bgm.mp3" type="audio/mpeg">
+        const grid = document.getElementById("photoGrid");
 
-<script>
-const bgm = document.getElementById('globalBgm');
-const musicBtn = document.getElementById('musicBtn');
-const state = localStorage.getItem('globalBgmState');
-
-if(state === 'play'){
-    bgm.play().catch(e=>{});
-    musicBtn.innerText = "暂停音乐";
-}else{
-    musicBtn.innerText = "播放音乐";
-}
-
-bgm.addEventListener('play', ()=>{
-    localStorage.setItem('globalBgmState','play');
-    musicBtn.innerText = "暂停音乐";
-})
-bgm.addEventListener('pause', ()=>{
-    localStorage.setItem('globalBgmState','pause');
-    musicBtn.innerText = "播放音乐";
-})
-
-musicBtn.onclick = () => {
-    if(bgm.paused){
-        bgm.play();
-    }else{
-        bgm.pause();
-    }
-}
-
-// 你的所有图片列表
-const imgList = [
-    "IMG_20260424_224337.jpg",
-    "IMG_20260424_224308.jpg",
-    "IMG_20260424_224243.jpg",
-    "IMG_20260424_224227.jpg",
-    "IMG_20260424_224438.jpg",
-    "IMG_20260424_224201.jpg",
-    "IMG_20260424_224621.jpg",
-    "IMG_20260424_224640.jpg",
-    "Screenshot_2026-02-07-13-31-24-23_008f17477daa201618afb90ad83e4b1d.jpg",
-    "Screenshot_2026-04-02-22-08-35-88_b783bf344239542886fee7b48fa4b892.jpg",
-    "Screenshot_2026-02-18-12-28-23-08_008f17477daa201618afb90ad83e4b1d.jpg",
-    "Screenshot_2026-04-19-00-09-25-73_9d26c6446fd7bb8e41d99b6262b17def.jpg＂
-
-];
-
-const grid = document.getElementById("photoGrid");
-// 修复：即使一张图片加载失败，也不会影响其他图片
-imgList.forEach(n=>{
-    let i = document.createElement("img");
-    i.src = "assets/images/"+n;
-    i.loading = "lazy";
-    // 图片加载失败也继续执行
-    i.onerror = function() {
-        console.log("图片加载失败：" + n);
-    };
-    grid.appendChild(i);
-})
-</script>
+        // 遍历加载所有图片
+        imgList.forEach(n => {
+            let i = document.createElement("img");
+            // 路径：assets/images/ + 图片名，和你仓库结构一致
+            i.src = "assets/images/" + n;
+            // 懒加载优化
+            i.loading = "lazy";
+            // 图片加载失败处理
+            i.onerror = function () {
+                console.log("❌ 图片加载失败: " + n);
+                // 替换为错误提示样式
+                i.className = "img-error";
+                i.alt = "加载失败: " + n;
+            };
+            // 图片加载成功提示
+            i.onload = function () {
+                console.log("✅ 图片加载成功: " + n);
+            };
+            // 点击图片可放大预览
+            i.onclick = function () {
+                window.open(i.src, "_blank");
+            };
+            grid.appendChild(i);
+        });
+    </script>
 </body>
 </html>
