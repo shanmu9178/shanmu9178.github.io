@@ -39,31 +39,64 @@ p {
     line-height: 1.6;
     margin-bottom: 10px;
 }
+.music-wrap {
+    margin-top: 30px;
+}
+.music-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(147,197,253,0.4);
+    background: rgba(30, 41, 59, 0.9);
+    color: #93c5fd;
+    font-size: 14px;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
 <div class="container">
     <a href="index.html" class="back-btn">← 返回主页</a>
     <h2>关于本站</h2>
-    <p>本站将稳定运行78年，免费运营，目前是正式版1.0 只开放“相册、讨论区”，后续其他功能会陆续上线😎 另外相册区我要投稿照片的可以私信发给我，你们本地上传是只能自己看见的，我从云端上传是所有人都可以看见 网站图片加载卡顿可以使用VPN，没有的可以问我要</p>
+    <p>本站将稳定运行78年，免费运营，目前是正式版1.0 只开放“相册、讨论区”，后续其他功能会陆续上线😊 另外相册区我要投稿照片的可以私信发给我，你们本地上传是只能自己看见的，我从云端上传是所有人都可以看见 网站图片加载卡顿可以使用VPN，没有的可以问我要</p>
+
+    <!-- 内嵌音乐按钮 -->
+    <div class="music-wrap">
+        <button class="music-btn" id="musicBtn">播放音乐</button>
+    </div>
 </div>
 
-<!-- 这里才是 audio 标签正确的位置！ -->
-<audio id="globalBgm" loop preload="auto" style="position:fixed;bottom:-9999px;opacity:0;pointer-events:none;">
+<!-- 全局无缝音乐 -->
+<audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
     <source src="bgm.mp3" type="audio/mpeg">
-
 
 <script>
 const bgm = document.getElementById('globalBgm');
-if(localStorage.getItem('globalBgmState') === 'play'){
-    bgm.play().catch(()=>{});
+const musicBtn = document.getElementById('musicBtn');
+const state = localStorage.getItem('globalBgmState');
+
+if(state === 'play'){
+    bgm.play().catch(e=>{});
+    musicBtn.innerText = "暂停音乐";
+}else{
+    musicBtn.innerText = "播放音乐";
 }
+
 bgm.addEventListener('play', ()=>{
     localStorage.setItem('globalBgmState','play');
-});
+    musicBtn.innerText = "暂停音乐";
+})
 bgm.addEventListener('pause', ()=>{
     localStorage.setItem('globalBgmState','pause');
-});
+    musicBtn.innerText = "播放音乐";
+})
+
+musicBtn.onclick = () => {
+    if(bgm.paused){
+        bgm.play();
+    }else{
+        bgm.pause();
+    }
+}
 </script>
 </body>
 </html>
