@@ -1,42 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>网站区</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{
-            background: linear-gradient(-45deg,#0f172a,#1e293b,#273444,#0f172a);
-            background-size:400% 400%;
-            animation:bgMove 15s ease infinite;
-            color:#eee;min-height:100vh;padding:20px;
-        }
-        @keyframes bgMove{
-            0%{background-position:0% 50%;}
-            50%{background-position:100% 50%;}
-            100%{background-position:0% 50%;}
-        }
-        .box{max-width:1000px;margin:0 auto;}
-        .back{display:inline-block;padding:10px 20px;background:rgba(255,255,255,0.1);border-radius:8px;color:#fff;text-decoration:none;margin-bottom:20px;}
-        .icon{font-size:36px;color:#60a5fa;margin-bottom:12px;}
-        h2{margin-bottom:15px;}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>网站合集</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: linear-gradient(-45deg,#0f172a,#1e293b,#253b56,#142840);
+    background-size: 400% 400%;
+    animation: gradientBg 14s ease infinite;
+    min-height: 100vh;
+    font-family: "微软雅黑",sans-serif;
+    color: #fff;
+    padding: 20px;
+}
+@keyframes gradientBg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+.container {
+    max-width: 500px;
+    margin: 40px auto 0;
+}
+.back-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #93c5fd;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+}
+h2 {
+    text-align: center;
+    color: #93c5fd;
+    margin-bottom: 30px;
+}
+</style>
 </head>
 <body>
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://music.163.com/song/media/outer/url?id=41534902.mp3" type="audio/mpeg">
-    
-    <div class="box">
-        <a href="index.html" class="back"><i class="fa fa-arrow-left"></i> 返回主页</a>
-        <i class="fa fa-globe icon"></i>
-        <h2>网站区</h2>
-        <p>小众优质网站、在线工具、资源导航大全。</p>
-    </div>
-    <script>
-        const audio=document.getElementById("bgMusic");
-        document.addEventListener("click",()=>audio.play(),{once:true});
-    </script>
+<div class="container">
+    <a href="index.html" class="back-btn">← 返回主页</a>
+    <h2>网站合集</h2>
+</div>
+
+<audio id="bgAudio" loop preload="metadata" style="display:none;">
+    <source src="bgm.mp3" type="audio/mpeg">
+
+<script>
+const audio = document.getElementById('bgAudio');
+let isPlay = localStorage.getItem('musicPlay') === 'true';
+if(isPlay) audio.play().catch(e=>{});
+</script>
 </body>
 </html>
