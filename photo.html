@@ -35,6 +35,7 @@ h2 {
     color: #93c5fd;
     margin-bottom: 20px;
 }
+/* 强制添加 photo-grid 样式 */
 .photo-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -64,15 +65,14 @@ h2 {
 <div class="container">
     <a href="index.html" class="back-btn">← 返回主页</a>
     <h2>照片相册</h2>
+    <!-- 强制添加 photoGrid 容器 -->
     <div class="photo-grid" id="photoGrid"></div>
 
-    <!-- 内嵌音乐按钮 -->
     <div class="music-wrap">
         <button class="music-btn" id="musicBtn">播放音乐</button>
     </div>
 </div>
 
-<!-- 全局无缝音乐 -->
 <audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
     <source src="bgm.mp3" type="audio/mpeg">
 
@@ -81,7 +81,6 @@ const bgm = document.getElementById('globalBgm');
 const musicBtn = document.getElementById('musicBtn');
 const state = localStorage.getItem('globalBgmState');
 
-// 恢复播放状态
 if(state === 'play'){
     bgm.play().catch(e=>{});
     musicBtn.innerText = "暂停音乐";
@@ -89,7 +88,6 @@ if(state === 'play'){
     musicBtn.innerText = "播放音乐";
 }
 
-// 状态监听
 bgm.addEventListener('play', ()=>{
     localStorage.setItem('globalBgmState','play');
     musicBtn.innerText = "暂停音乐";
@@ -99,7 +97,6 @@ bgm.addEventListener('pause', ()=>{
     musicBtn.innerText = "播放音乐";
 })
 
-// 开关按钮
 musicBtn.onclick = () => {
     if(bgm.paused){
         bgm.play();
@@ -108,21 +105,28 @@ musicBtn.onclick = () => {
     }
 }
 
-// 照片列表（请修改为你的图片文件名）
+// 你的所有图片列表
 const imgList = [
     "IMG_20260424_224337.jpg",
     "IMG_20260424_224308.jpg",
     "IMG_20260424_224243.jpg",
-    "IMG_20260424_224227.jpg"
+    "IMG_20260424_224227.jpg",
     "IMG_20260424_224438.jpg",
     "IMG_20260424_224201.jpg",
     "IMG_20260424_224621.jpg",
     "IMG_20260424_224640.jpg"
 ];
+
 const grid = document.getElementById("photoGrid");
+// 修复：即使一张图片加载失败，也不会影响其他图片
 imgList.forEach(n=>{
     let i = document.createElement("img");
     i.src = "assets/images/"+n;
+    i.loading = "lazy";
+    // 图片加载失败也继续执行
+    i.onerror = function() {
+        console.log("图片加载失败：" + n);
+    };
     grid.appendChild(i);
 })
 </script>
