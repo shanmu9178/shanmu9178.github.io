@@ -1,273 +1,114 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人小站</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f0f2f5;
-            padding: 20px;
-        }
-        .home-container {
-            background: white;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        .home-container h1 {
-            color: #2c3e50;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-        .home-container p {
-            color: #7f8c8d;
-            font-size: 18px;
-            margin-bottom: 35px;
-            opacity: 0.9;
-        }
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-        .main-btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 160px;
-        }
-        .btn-primary {
-            background-color: #0084ff;
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #0066cc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
-        }
-        .btn-secondary {
-            background-color: #ecf0f1;
-            color: #2c3e50;
-        }
-        .btn-secondary:hover {
-            background-color: #d0d7d9;
-            transform: translateY(-2px);
-        }
-        .gallery-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.85);
-            display: none;
-            z-index: 100;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        #closeGallery {
-            position: fixed;
-            top: 30px; right: 30px;
-            font-size: 36px;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 101;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        #closeGallery:hover {
-            opacity: 1;
-        }
-        .gallery-content {
-            max-width: 1200px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-        }
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .gallery-header h2 {
-            color: #2c3e50;
-            font-size: 24px;
-        }
-        .upload-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .upload-section h3 {
-            margin-bottom: 15px;
-            color: #34495e;
-        }
-        .upload-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .upload-btn:hover {
-            background-color: #218838;
-        }
-        #photoInput {
-            display: none;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-        .gallery-item {
-            border-radius: 10px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-        }
-        .gallery-item .caption {
-            padding: 12px;
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
-            font-size: 16px;
-            color: #777;
-        }
-        .empty-tip {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人主页</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: linear-gradient(-45deg,#0f172a,#1e293b,#253b56,#142840);
+    background-size: 400% 400%;
+    animation: gradientBg 14s ease infinite;
+    min-height: 100vh;
+    font-family: "微软雅黑",sans-serif;
+    color: #fff;
+    padding: 20px;
+}
+@keyframes gradientBg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+.container {
+    max-width: 500px;
+    margin: 70px auto 0;
+    text-align: center;
+}
+.title {
+    font-size: 30px;
+    color: #93c5fd;
+    margin-bottom: 45px;
+    letter-spacing: 1px;
+}
+.link-item {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    background: rgba255,255,255,0.08;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 15px 0;
+    margin: 13px 0;
+    transition: 0.25s;
+}
+.link-item:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+.music-wrap {
+    margin-top: 40px;
+}
+.music-btn {
+    padding: 11px 26px;
+    border: 1px solid rgba(147,197,253,0.3);
+    border-radius: 30px;
+    background: rgba(147,197,253,0.18);
+    color: #93c5fd;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: 0.25s;
+}
+.music-btn:hover {
+    background: rgba(147,197,253,0.32);
+}
+</style>
 </head>
 <body>
+<div class="container">
+    <h2 class="title">我的个人主页</h2>
 
-<div class="home-container">
-    <h1>☠️ 欢迎来到我的猎奇小站
-    作者:贾某</h1>
-    <p>在这里记录我的猎奇生活、照片和故事</p>
-    
-    <div class="btn-group">
-        <button class="main-btn btn-primary" onclick="openGallery()">📷 浏览相册</button>
-        <button class="main-btn btn-secondary" onclick="alert('关于我页面开发中...')">🙋‍♂️ 关于我</button>
-        <button class="main-btn btn-secondary" onclick="alert('博客页面开发中...')">📖 查看文章</button>
+    <a href="photo.html" class="link-item">📷 照片相册</a>
+    <a href="talk.html" class="link-item">💬 在线讨论</a>
+    <a href="music.html" class="link-item">🎵 音乐页面</a>
+    <a href="reward.html" class="link-item">🎁 打赏支持</a>
+    <a href="soft.html" class="link-item">💻 软件分享</a>
+    <a href="web.html" class="link-item">🌐 网站合集</a>
+    <a href="tool.html" class="link-item">🛠️ 实用工具</a>
+    <a href="about.html" class="link-item">👤 关于本站</a>
+
+    <div class="music-wrap">
+        <button id="audioBtn" class="music-btn">播放背景音乐</button>
     </div>
 </div>
 
-<div class="gallery-overlay" id="galleryOverlay">
-    <button id="closeGallery" onclick="closeGallery()">×</button>
-    
-    <div class="gallery-content">
-        <div class="gallery-header">
-            <h2>📷 我的公开相册</h2>
-            <button class="main-btn btn-primary" onclick="document.getElementById('photoInput').click()">📤 上传新照片</button>
-        </div>
+<audio id="bgAudio" loop preload="metadata">
+    <source src="bgm.mp3" type="audio/mpeg">
 
-        <input type="file" id="photoInput" multiple accept="image/*" onchange="handleFileSelect(event)">
-
-        <div id="gallery" class="gallery-grid">
-            <div class="loading">正在加载照片...</div>
-        </div>
-    </div>
-</div>
 
 <script>
-    const photoList = [
-        ["776519535854.png", "景诗语"],
-    ];
+const audio = document.getElementById('bgAudio');
+const btn = document.getElementById('audioBtn');
+let isPlay = false;
 
-    function openGallery() {
-        document.getElementById('galleryOverlay').style.display = 'block';
-        loadGallery();
+btn.addEventListener('click',()=>{
+    if(!isPlay){
+        audio.play().then(()=>{
+            isPlay = true;
+            btn.innerText = "暂停背景音乐";
+        })
+    }else{
+        audio.pause();
+        isPlay = false;
+        btn.innerText = "播放背景音乐";
     }
-
-    function closeGallery() {
-        document.getElementById('galleryOverlay').style.display = 'none';
-    }
-
-    function loadGallery() {
-        const gallery = document.getElementById('gallery');
-        
-        if (photoList.length === 0) {
-            gallery.innerHTML = '<div class="empty-tip">相册还空着呢，快去上传照片吧！</div>';
-            return;
-        }
-
-        gallery.innerHTML = '';
-        photoList.forEach(photo => {
-            const [filename, caption] = photo;
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            
-            const img = new Image();
-            img.src = `assets/images/${filename}`;
-            img.alt = caption || '照片';
-            
-            img.onerror = function() {
-                this.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='180' fill='%23eee' viewBox='0 0 16 16'%3E%3Cpath d='M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z'/%3E%3Cpath d='M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5h-13z'/%3E%3C/svg%3E`;
-            };
-
-            item.appendChild(img);
-            const captionEl = document.createElement('div');
-            captionEl.className = 'caption';
-            captionEl.innerText = caption || '未命名照片';
-            item.appendChild(captionEl);
-            gallery.appendChild(item);
-        });
-    }
-
-    function handleFileSelect(event) {
-        const files = event.target.files;
-        if (!files.length) return;
-        
-        alert(`已选择 ${files.length} 张照片，请前往 GitHub 仓库的 assets/images 文件夹手动上传，然后在 gallery.html 中添加文件名。`);
-        event.target.value = '';
-    }
-
-    document.getElementById('galleryOverlay').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeGallery();
-        }
-    });
+})
 </script>
-
 </body>
 </html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>讨论区</title>
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460);
+    background-size: 400% 400%;
+    animation: bgFlow 12s ease infinite;
+    color: #f8fafc;
+    padding: 20px;
+}
+@keyframes bgFlow {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+.back {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 25px;
+    color: #7dd3fc;
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+h2 {
+    margin: 0 0 20px;
+    color:#7dd3fc;
+    text-align: center;
+    font-size: 24px;
+}
+.desc {
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 40px;
+}
+.giscus {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+</style>
+</head>
+<body>
+<a href="index.html" class="back">← 返回主页</a>
+
+<h2>在线讨论区</h2>
+<p class="desc">在这里留言交流，所有人可见</p>
+
+<div class="giscus">
+<script src="https://giscus.app/client.js"
+        data-repo="shanmu9178/shanmu9178.github.io"
+        data-repo-id="这里填你自己的repo-id"
+        data-category="Announcements"
+        data-category-id="这里填你自己的category-id"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="dark_tron"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+
+</body>
+</html>
