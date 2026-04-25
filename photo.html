@@ -3,107 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的相册</title>
+    <title>我的相册 | 分类画廊</title>
     <style>
-        /* 基础重置 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background: #1a1a1a;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+            font-family: "Microsoft Yahei", system-ui, sans-serif;
             color: #fff;
-            font-family: system-ui, -apple-system, sans-serif;
-            padding: 20px;
+            padding: 30px 15px;
         }
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 24px;
-            letter-spacing: 2px;
-        }
-        /* 图片网格布局 */
-        #photoGrid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-            max-width: 1200px;
+
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
         }
-        #photoGrid img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #74b9ff, #a29bfe);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* 分类按钮栏 美化 */
+        .cate-box {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .cate-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: #eee;
+            font-size: 15px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
-        #photoGrid img:hover {
-            transform: scale(1.05);
+
+        .cate-btn:hover {
+            background: rgba(116, 185, 255, 0.3);
+            transform: translateY(-2px);
         }
-        /* 加载失败的图片样式 */
+
+        .cate-btn.active {
+            background: #74b9ff;
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* 图片网格 */
+        #photoGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-item {
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(116, 185, 255, 0.2);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 加载失败样式 */
         .img-error {
-            background: #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #888;
-            font-size: 12px;
+            background: #222;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* 隐藏分类 */
+        .hide {
+            display: none;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            #photoGrid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            .photo-item img {
+                height: 180px;
+            }
+            h1 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>我的相册</h1>
-    <div id="photoGrid"></div>
+    <div class="container">
+        <h1>✨ 个人相册画廊</h1>
+
+        <!-- 分类按钮 -->
+        <div class="cate-box">
+            <button class="cate-btn active" data-cate="all">全部</button>
+            <button class="cate-btn" data-cate="screenshot">截图</button>
+            <button class="cate-btn" data-cate="daily">日常照片</button>
+            <button class="cate-btn" data-cate="png">PNG图片</button>
+        </div>
+
+        <!-- 图片容器 -->
+        <div id="photoGrid"></div>
+    </div>
 
     <script>
-        // ========== 这里是你所有的图片列表，已经按截图全部补全 ==========
-        const imgList = [
-            "776519535854.png",
-            "IMG_20260424_224201.jpg",
-            "IMG_20260424_224227.jpg",
-            "IMG_20260424_224243.jpg",
-            "IMG_20260424_224308.jpg",
-            "IMG_20260424_224337.jpg",
-            "IMG_20260424_224438.jpg",
-            "IMG_20260424_224621.jpg",
-            "IMG_20260424_224640.jpg",
-            "IMG_20260425_073524.png",
-            "Image_1777029145647_867.jpg",
-            "Screenshot_2026-02-07-13-31-24-23_008f17477daa201618afb90ad83e4b1d.jpg",
-            "Screenshot_2026-02-18-12-28-23-08_008f17477daa201618afb90ad83e4b1d.jpg",
-            "Screenshot_2026-03-28-20-31-42-14_73230ea9d8560975a5358fd7.jpg",
-            "Screenshot_2026-04-02-22-08-35-88_b783bf344239542886fee7b48fa4b892.jpg",
-            "Screenshot_2026-04-19-00-09-25-73_9d26c6446fd7bb8e41d99b6262b17def.jpg"
+        // 图片数组 + 绑定分类标签
+        const imgData = [
+            {name:"776519535854.png", cate:"png"},
+            {name:"IMG_20260424_224201.jpg", cate:"daily"},
+            {name:"IMG_20260424_224227.jpg", cate:"daily"},
+            {name:"IMG_20260424_224243.jpg", cate:"daily"},
+            {name:"IMG_20260424_224308.jpg", cate:"daily"},
+            {name:"IMG_20260424_224337.jpg", cate:"daily"},
+            {name:"IMG_20260424_224438.jpg", cate:"daily"},
+            {name:"IMG_20260424_224621.jpg", cate:"daily"},
+            {name:"IMG_20260424_224640.jpg", cate:"daily"},
+            {name:"IMG_20260425_073524.png", cate:"png"},
+            {name:"Image_1777029145647_867.jpg", cate:"daily"},
+            {name:"Screenshot_2026-02-07-13-31-24-23_008f17477daa201618afb90ad83e4b1d.jpg", cate:"screenshot"},
+            {name:"Screenshot_2026-02-18-12-28-23-08_008f17477daa201618afb90ad83e4b1d.jpg", cate:"screenshot"},
+
+            {name:"Screenshot_2026-04-02-22-08-35-88_b783bf344239542886fee7b48fa4b892.jpg", cate:"screenshot"},
+            {name:"Screenshot_2026-04-19-00-09-25-73_9d26c6446fd7bb8e41d99b6262b17def.jpg", cate:"screenshot"}
         ];
 
         const grid = document.getElementById("photoGrid");
+        const btnList = document.querySelectorAll(".cate-btn");
 
-        // 遍历加载所有图片
-        imgList.forEach(n => {
-            let i = document.createElement("img");
-            // 路径：assets/images/ + 图片名，和你仓库结构一致
-            i.src = "assets/images/" + n;
-            // 懒加载优化
-            i.loading = "lazy";
-            // 图片加载失败处理
-            i.onerror = function () {
-                console.log("❌ 图片加载失败: " + n);
-                // 替换为错误提示样式
-                i.className = "img-error";
-                i.alt = "加载失败: " + n;
-            };
-            // 图片加载成功提示
-            i.onload = function () {
-                console.log("✅ 图片加载成功: " + n);
-            };
-            // 点击图片可放大预览
-            i.onclick = function () {
-                window.open(i.src, "_blank");
-            };
-            grid.appendChild(i);
-        });
+        // 渲染所有图片
+        function renderList(cateType){
+            grid.innerHTML = "";
+            imgData.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "photo-item";
+                if(cateType !== "all" && item.cate !== cateType){
+                    div.classList.add("hide");
+                }
+
+                const img = document.createElement("img");
+                img.src = "assets/images/" + item.name;
+                img.loading = "lazy";
+                img.alt = "相册图片";
+
+                // 加载失败
+                img.onerror = function(){
+                    img.className = "img-error";
+                    img.alt = "加载失败";
+                }
+                // 点击新标签预览大图
+                img.onclick = ()=> window.open(img.src,"_blank");
+
+                div.appendChild(img);
+                grid.appendChild(div);
+            })
+        }
+
+        // 分类切换
+        btnList.forEach(btn=>{
+            btn.addEventListener("click",function(){
+                // 按钮激活状态
+                btnList.forEach(b=>b.classList.remove("active"));
+                this.classList.add("active");
+                // 渲染对应分类
+                const type = this.dataset.cate;
+                renderList(type);
+            })
+        })
+
+        // 默认加载全部
+        renderList("all");
     </script>
 </body>
 </html>
