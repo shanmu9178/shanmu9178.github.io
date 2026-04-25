@@ -10,111 +10,90 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             min-height: 100vh;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             font-family: "Microsoft Yahei", system-ui, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
+            padding: 40px 15px;
         }
-
         .container {
-            width: 100%;
-            max-width: 600px;
+            max-width: 650px;
+            margin: 0 auto;
         }
-
         h1 {
             text-align: center;
-            font-size: 32px;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
+            font-size: 30px;
+            letter-spacing: 2px;
+            margin-bottom: 45px;
             background: linear-gradient(90deg, #74b9ff, #a29bfe);
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(116, 185, 255, 0.3);
         }
-
-        /* 按钮卡片 */
-        .menu-item {
+        .menu-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-
-        .menu-item::before {
+        .menu-card::before {
             content: "";
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.2), transparent);
-            transition: left 0.6s ease;
+            background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.15), transparent);
+            transition: 0.6s;
         }
-
-        .menu-item:hover {
-            background: rgba(116, 185, 255, 0.1);
-            border-color: rgba(116, 185, 255, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba116, 185, 255, 0.35;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            background: rgba(116, 185, 255, 0.08);
         }
-
-        .menu-item:hover::before {
+        .menu-card:hover::before {
             left: 100%;
         }
-
-        .menu-title {
+        .card-title {
+            font-size: 18px;
             color: #fff;
-            font-size: 17px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
-
-        .menu-desc {
-            color: rgba(255, 255, 255, 0.6);
+        .card-desc {
             font-size: 13px;
-            margin-left: 28px;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.6;
+            padding-left: 28px;
         }
-
-        /* 音乐按钮 */
+        .music-wrap {
+            text-align: center;
+            margin-top: 50px;
+        }
         .music-btn {
-            display: block;
-            margin: 40px auto 0;
-            padding: 10px 24px;
-            border: none;
+            padding: 11px 28px;
             border-radius: 50px;
-            background: rgba(116, 185, 255, 0.2);
+            border: none;
+            background: rgba(116, 185, 255, 0.18);
             color: #74b9ff;
             font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
-
         .music-btn:hover {
-            background: rgba(116, 185, 255, 0.4);
+            background: rgba(116, 185, 255, 0.35);
             transform: scale(1.05);
         }
-
-        /* 移动端适配 */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 24px;
-            }
-            .menu-title {
-                font-size: 16px;
-            }
+        @media (max-width: 768px) {
+            h1 {font-size: 24px;}
+            .card-title {font-size: 16px;}
         }
     </style>
 </head>
@@ -122,90 +101,72 @@
     <div class="container">
         <h1>一个不知名的小破站</h1>
 
-        <div class="menu-item" onclick="location.href='photo.html'">
-            <div class="menu-title">📷 照片相册</div>
-            <div class="menu-desc">记录生活里的碎片瞬间，随手拍的日常和截图都在这里</div>
+        <div class="menu-card" onclick="location.href='photo.html'">
+            <div class="card-title">📷 照片相册</div>
+            <div class="card-desc">生活碎片、随手记录、各类截图与图集分类展示。</div>
+        </div>
+        <div class="menu-card" onclick="location.href='comment.html'">
+            <div class="card-title">💬 留言讨论</div>
+            <div class="card-desc">在线留言互动区，自由吐槽交流，记录想法。</div>
+        </div>
+        <div class="menu-card" onclick="location.href='music.html'">
+            <div class="card-title">🎵 音乐页面</div>
+            <div class="card-desc">多首音乐合集，支持切歌、循环、沉浸式听歌。</div>
+        </div>
+        <div class="menu-card" onclick="location.href='soft.html'">
+            <div class="card-title">💻 软件分享</div>
+            <div class="card-desc">自用优质软件、工具资源，无广告纯净分享。</div>
+        </div>
+        <div class="menu-card" onclick="location.href='link.html'">
+            <div class="card-title">🌐 网站合集</div>
+            <div class="card-desc">精选宝藏网站汇总，学习娱乐工具一网打尽。</div>
+        </div>
+        <div class="menu-card" onclick="location.href='tool.html'">
+            <div class="card-title">🛠️ 实用工具</div>
+            <div class="card-desc">在线小工具合集，满足日常简单使用需求。</div>
+        </div>
+        <div class="menu-card" onclick="location.href='about.html'">
+            <div class="card-title">👤 关于本站</div>
+            <div class="card-desc">站点介绍、搭建说明、更新日志与碎碎念。</div>
         </div>
 
-        <div class="menu-item">
-            <div class="menu-title">💬 在线讨论</div>
-            <div class="menu-desc">留言、吐槽、闲聊，任何想法都可以在这里留下痕迹</div>
+        <div class="music-wrap">
+            <button class="music-btn" id="audioBtn">播放音乐</button>
         </div>
-
-        <div class="menu-item">
-            <div class="menu-title">🎵 音乐页面</div>
-            <div class="menu-desc">我的私藏歌单分享，有治愈也有emo，随时在线循环</div>
-        </div>
-
-        <div class="menu-item">
-            <div class="menu-title">🎁 打赏支持</div>
-            <div class="menu-desc">如果你觉得这个小破站还不错，可以请我喝杯奶茶</div>
-        </div>
-
-        <div class="menu-item">
-            <div class="menu-title">💻 软件分享</div>
-            <div class="menu-desc">自用的实用工具、效率软件，无套路免费分享</div>
-        </div>
-
-        <div class="menu-item">
-            <div class="menu-title">🌐 网站合集</div>
-            <div class="menu-desc">收藏夹里的宝藏网站，学习、摸鱼、提升效率都有</div>
-        </div>
-
-        <div class="menu-item">
-            <div class="menu-title">🛠️ 实用工具</div>
-            <div class="menu-desc">在线小工具合集，图片处理、文本工具、格式转换等</div>
-        </div>
-
-        <div class="menu-item">
-            <div class="menu-title">👤 关于本站</div>
-            <div class="menu-desc">这个小破站的由来、作者碎碎念和更新说明</div>
-        </div>
-
-        <button class="music-btn" id="musicBtn">暂停音乐</button>
     </div>
 
-    <!-- 继承原有的背景音乐 -->
-    <audio id="bgm" loop>
-        <!-- 这里填你的音乐文件路径，比如 assets/bgm.mp3 -->
+    <audio id="bgMusic" loop preload="auto">
         <source src="assets/bgm.mp3" type="audio/mpeg">
     
 
     <script>
-        const bgm = document.getElementById("bgm");
-        const musicBtn = document.getElementById("musicBtn");
-        let isPlaying = false;
-
-        // 页面加载后自动播放（部分浏览器需要用户交互后才能播放）
-        window.addEventListener("load", () => {
-            // 尝试自动播放
-            bgm.play().then(() => {
-                isPlaying = true;
-                musicBtn.textContent = "暂停音乐";
-            }).catch(() => {
-                // 自动播放失败时，提示用户点击播放
-                musicBtn.textContent = "点击播放音乐";
-            });
-        });
-
-        // 按钮控制播放/暂停
-        musicBtn.addEventListener("click", () => {
-            if (isPlaying) {
-                bgm.pause();
-                musicBtn.textContent = "播放音乐";
-                isPlaying = false;
-            } else {
-                bgm.play();
-                musicBtn.textContent = "暂停音乐";
-                isPlaying = true;
-            }
-        });
-
-        // 给相册页面加音乐联动（可选，跳转相册时暂停/继续）
-        document.querySelector("[onclick*='photo.html']").addEventListener("click", () => {
-            // 你可以在这里设置跳转相册时暂停音乐
-            // bgm.pause();
-        });
+        const bgMusic = document.getElementById('bgMusic');
+        const audioBtn = document.getElementById('audioBtn');
+        let audioState = false;
+        audioBtn.addEventListener('click', function () {
+            audioState ? (bgMusic.pause(),audioBtn.innerText='播放音乐') : (bgMusic.play(),audioBtn.innerText='暂停音乐');
+            audioState = !audioState;
+        })
+        document.addEventListener('click', ()=>{
+            if(!audioState){bgMusic.play();audioBtn.innerText='暂停音乐';audioState=true;}
+        },{once:true});
     </script>
+    <!-- 全局播放器iframe（隐藏） -->
+<iframe id="playerIframe" src="player.html" style="display:none;"></iframe>
+<script>
+const player=document.getElementById('playerIframe');
+// 发指令给播放器
+function playerCmd(type,idx){
+  player.contentWindow.postMessage({type,idx},'*');
+}
+// 接收播放器发来的歌名更新
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='song'){
+    let el=document.getElementById('songName');
+    if(el)el.innerText=e.data.name;
+  }
+});
+</script>
+
 </body>
 </html>

@@ -151,11 +151,9 @@
             {name:"IMG_20260424_224438.jpg", cate:"daily"},
             {name:"IMG_20260424_224621.jpg", cate:"daily"},
             {name:"IMG_20260424_224640.jpg", cate:"daily"},
-            {name:"IMG_20260425_073524.png", cate:"png"},
             {name:"Image_1777029145647_867.jpg", cate:"daily"},
             {name:"Screenshot_2026-02-07-13-31-24-23_008f17477daa201618afb90ad83e4b1d.jpg", cate:"screenshot"},
             {name:"Screenshot_2026-02-18-12-28-23-08_008f17477daa201618afb90ad83e4b1d.jpg", cate:"screenshot"},
-
             {name:"Screenshot_2026-04-02-22-08-35-88_b783bf344239542886fee7b48fa4b892.jpg", cate:"screenshot"},
             {name:"Screenshot_2026-04-19-00-09-25-73_9d26c6446fd7bb8e41d99b6262b17def.jpg", cate:"screenshot"}
         ];
@@ -206,5 +204,22 @@
         // 默认加载全部
         renderList("all");
     </script>
+    <!-- 全局播放器iframe（隐藏） -->
+<iframe id="playerIframe" src="player.html" style="display:none;"></iframe>
+<script>
+const player=document.getElementById('playerIframe');
+// 发指令给播放器
+function playerCmd(type,idx){
+  player.contentWindow.postMessage({type,idx},'*');
+}
+// 接收播放器发来的歌名更新
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='song'){
+    let el=document.getElementById('songName');
+    if(el)el.innerText=e.data.name;
+  }
+});
+</script>
+
 </body>
 </html>

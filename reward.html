@@ -107,7 +107,7 @@ musicBtn.onclick = () => {
 
 // 打赏图片列表（请修改为你的图片文件名）
 const imgList = [
-    "pay1.jpg",
+    "IMG_20260425_073524.png",
     "pay2.jpg"
 ];
 const grid = document.getElementById("photoGrid");
@@ -117,5 +117,22 @@ imgList.forEach(n=>{
     grid.appendChild(i);
 })
 </script>
+<!-- 全局播放器iframe（隐藏） -->
+<iframe id="playerIframe" src="player.html" style="display:none;"></iframe>
+<script>
+const player=document.getElementById('playerIframe');
+// 发指令给播放器
+function playerCmd(type,idx){
+  player.contentWindow.postMessage({type,idx},'*');
+}
+// 接收播放器发来的歌名更新
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='song'){
+    let el=document.getElementById('songName');
+    if(el)el.innerText=e.data.name;
+  }
+});
+</script>
+
 </body>
 </html>

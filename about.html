@@ -1,102 +1,125 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>关于本站</title>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    background: #1e293b;
-    min-height: 100vh;
-    font-family: "微软雅黑",sans-serif;
-    color: #fff;
-    padding: 40px 20px;
-}
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-.back-btn {
-    display: inline-block;
-    text-decoration: none;
-    color: #93c5fd;
-    border: 1px solid rgba(147,197,253,0.4);
-    border-radius: 20px;
-    padding: 8px 20px;
-    margin-bottom: 30px;
-}
-h2 {
-    color: #93c5fd;
-    margin-bottom: 20px;
-}
-p {
-    line-height: 1.6;
-    margin-bottom: 10px;
-}
-.music-wrap {
-    margin-top: 30px;
-}
-.music-btn {
-    padding: 10px 20px;
-    border-radius: 30px;
-    border: 1px solid rgba(147,197,253,0.4);
-    background: rgba(30, 41, 59, 0.9);
-    color: #93c5fd;
-    font-size: 14px;
-    cursor: pointer;
-}
-</style>
+    <meta charset="UTF-8">
+    <!-- 移动端自适应标签 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网页标题 -->
+    <title>关于本站 | 一个不知名的小破站</title>
+    <style>
+        /* 全局样式初始化 清除默认边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* 整体页面样式 */
+        body {
+            min-height: 100vh;
+            /* 和主页统一渐变背景 */
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: "Microsoft Yahei", sans-serif;
+            color: #eee;
+            padding: 30px 20px;
+            line-height: 1.8;
+        }
+        /* 内容容器 居中限制宽度 */
+        .about-box {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        /* 大标题样式 */
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #74b9ff, #a29bfe);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        /* 内容卡片 毛玻璃效果 */
+        .about-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        /* 小标题 */
+        h3 {
+            color: #74b9ff;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        /* 正文文字 */
+        p {
+            color: rgba(255,255,255,0.7);
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+        /* 返回首页按钮 */
+        .back-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 10px 26px;
+            background: rgba(116, 185, 255, 0.2);
+            color: #74b9ff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: rgba(116, 185, 255, 0.4);
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <a href="index.html" class="back-btn">← 返回主页</a>
-    <h2>关于本站</h2>
-    <p>本站将稳定运行78年，免费运营，目前是正式版1.0 只开放“相册、讨论区”，后续其他功能会陆续上线😊 另外相册区我要投稿照片的可以私信发给我，你们本地上传是只能自己看见的，我从云端上传是所有人都可以看见 网站图片加载卡顿可以使用VPN，没有的可以问我要</p>
+    <!-- 外层容器 -->
+    <div class="about-box">
+        <h2>关于本站</h2>
 
-    <!-- 内嵌音乐按钮 -->
-    <div class="music-wrap">
-        <button class="music-btn" id="musicBtn">播放音乐</button>
+        <!-- 站点介绍板块 -->
+        <div class="about-card">
+            <h3>📌 站点简介</h3>
+            <p>这是一个简简单单、随手搭建的个人小站点，没有复杂功能，没有花哨内容。</p>
+            <p>纯粹用来记录生活、存放相册、收藏资源、分享自用工具的小众小破站。</p>
+        </div>
+
+        <!-- 搭建说明板块 -->
+        <div class="about-card">
+            <h3>🛠 搭建信息</h3>
+            <p>搭建技术：原生 HTML + CSS + JavaScript</p>
+            <p>部署方式：轻量化静态网页部署</p>
+            <p>设计风格：深色极简、毛玻璃美化、简约高级风</p>
+        </div>
+
+        <!-- 功能说明板块 -->
+        <div class="about-card">
+            <h3>✨ 现有功能</h3>
+            <p>1. 分类相册：截图、日常、PNG图片分类浏览</p>
+            <p>2. 全局背景音乐：全站统一背景音乐播放控制</p>
+            <p>3. 多页面布局：相册、留言、音乐、工具、资源等多页面</p>
+            <p>4. 全端适配：完美适配手机、平板、电脑设备</p>
+        </div>
+
+        <!-- 更新日志板块 -->
+        <div class="about-card">
+            <h3>📅 更新说明</h3>
+            <p>持续优化页面美化、交互动效、功能新增与BUG修复</p>
+            <p>后续会慢慢补充更多实用工具与资源内容</p>
+        </div>
+
+        <!-- 尾巴碎碎念 -->
+        <div class="about-card">
+            <h3>💬 碎碎念</h3>
+            <p>建站初衷只是兴趣爱好，随缘更新，安静自用。</p>
+            <p>感谢浏览这个不知名的小破站～</p>
+        </div>
+
+        <!-- 返回首页跳转按钮 -->
+        <a href="index.html" class="back-btn">← 返回首页</a>
     </div>
-</div>
-
-<!-- 全局无缝音乐 -->
-<audio id="globalBgm" loop preload="auto" style="position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;">
-    <source src="bgm.mp3" type="audio/mpeg">
-
-<script>
-const bgm = document.getElementById('globalBgm');
-const musicBtn = document.getElementById('musicBtn');
-const state = localStorage.getItem('globalBgmState');
-
-if(state === 'play'){
-    bgm.play().catch(e=>{});
-    musicBtn.innerText = "暂停音乐";
-}else{
-    musicBtn.innerText = "播放音乐";
-}
-
-bgm.addEventListener('play', ()=>{
-    localStorage.setItem('globalBgmState','play');
-    musicBtn.innerText = "暂停音乐";
-})
-bgm.addEventListener('pause', ()=>{
-    localStorage.setItem('globalBgmState','pause');
-    musicBtn.innerText = "播放音乐";
-})
-
-musicBtn.onclick = () => {
-    if(bgm.paused){
-        bgm.play();
-    }else{
-        bgm.pause();
-    }
-}
-</script>
 </body>
 </html>

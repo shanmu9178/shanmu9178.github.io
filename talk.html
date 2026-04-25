@@ -49,6 +49,7 @@ h2 {
 
 </div>
 
+<!-- Giscus 标准正确写法 放在最底部 -->
 <script src="https://giscus.app/client.js"
         data-repo="shanmu9178/shanmu9178.github.io"
         data-repo-id="R_kgDOSGgjaw"
@@ -63,6 +64,22 @@ h2 {
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
+</script>
+<!-- 全局播放器iframe（隐藏） -->
+<iframe id="playerIframe" src="player.html" style="display:none;"></iframe>
+<script>
+const player=document.getElementById('playerIframe');
+// 发指令给播放器
+function playerCmd(type,idx){
+  player.contentWindow.postMessage({type,idx},'*');
+}
+// 接收播放器发来的歌名更新
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='song'){
+    let el=document.getElementById('songName');
+    if(el)el.innerText=e.data.name;
+  }
+});
 </script>
 
 </body>

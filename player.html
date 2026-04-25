@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>全局播放器</title>
+<style>
+body{display:none;}
+</style>
+</head>
+<body>
+<audio id="audio">
+<script>
+const audio=document.getElementById('audio');
+let songs=[
+  {name:"纯音乐 01",src:"assets/music1.mp3"},
+  {name:"治愈单曲 02",src:"assets/music2.mp3"},
+  {name:"轻音乐 03",src:"assets/music3.mp3"},
+  {name:"首页背景音乐",src:"assets/bgm.mp3"}
+];
+let nowIndex=0;
+
+// 从本地存储恢复状态
+function loadState(){
+  let idx=localStorage.getItem('songIndex');
+  let time=localStorage.getItem('currentTime');
+  let playing=localStorage.getItem('isPlaying');
+  if(idx!==null) nowIndex=+idx;
+  if(time!==null) audio.currentTime=+time;
+  audio.src=songs[nowIndex].src;
+  if(playing==='true') audio.play();
+}
+loadState();
+
+// 保存状态
+function saveState(){
+  localStorage.setItem('songIndex',nowIndex);
+  localStorage.setItem('currentTime',audio.currentTime);
+  localStorage.setItem('isPlaying',!audio.paused);
+}
+audio.addEventListener('timeupdate',saveState);
+audio.addEventListener('play',saveState);
+audio.addEventListener('pause',saveState);
+
+// 接收页面发来的指令
+window.addEventListener('message',e=>{
+  let d=e.data;
+  if(!d||!d.type)return;
+  switch(d.type){
+    case 'play': audio.play(); break;
+    case 'pause': audio.pause(); break;
+    case 'prev': prevSong(); break;
+    case 'next': nextSong(); break;
+    case 'load': loadSong(d.idx); break;
+  }
+});
+
+function loadSong(idx){
+  nowIndex=idx;
+  audio.src=songs[nowIndex].src;
+  audio.play();
+  saveState();
+  // 通知所有页面更新歌名
+  window.parent.postMessage({type:'song',name:songs[nowIndex].name,idx:nowIndex},'*');
+}
+function prevSong(){
+  let i=nowIndex-1;
+  if(i<0)i=songs.length-1;
+  loadSong(i);
+}
+function nextSong(){
+  let i=nowIndex+1;
+  if(i>=songs.length)i=0;
+  loadSong(i);
+}
+</script>
+</body>
+</html>
