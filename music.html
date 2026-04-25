@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音乐页面 | 一个不知名的小破站</title>
     <style>
+        /* 这里放你之前写的美化样式，不变 */
         * {margin: 0;padding: 0;box-sizing: border-box;}
         body {
             min-height: 100vh;
@@ -23,7 +24,6 @@
             color: transparent;
             letter-spacing: 2px;
         }
-        /* 音乐主卡片 毛玻璃美化 */
         .music-card {
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.12);
@@ -32,38 +32,6 @@
             text-align: center;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
-        }
-        /* 旋转唱片封面 */
-        .disc-wrap {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-        .disc {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #2d3436, #636e72);
-            box-shadow: 0 0 20px rgba(116,185,255,0.3);
-            animation: rotate 20s linear infinite;
-            animation-play-state: paused;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .disc::after {
-            content: "";
-            width: 30px;
-            height: 30px;
-            background: #1a1a2e;
-            border-radius: 50%;
-        }
-        /* 播放时唱片旋转 */
-        .disc.play {animation-play-state: running;}
-        @keyframes rotate {
-            0%{transform: rotate(0deg);}
-            100%{transform: rotate(360deg);}
         }
         .song-name {
             font-size: 22px;
@@ -76,39 +44,6 @@
             color: rgba(255,255,255,0.5);
             margin-bottom: 35px;
         }
-        /* 控制按钮美化 */
-        .ctrl-box {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
-        .ctrl-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(116,185,255,0.15);
-            color: #74b9ff;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(116,185,255,0.2);
-        }
-        .ctrl-btn:hover {
-            background: rgba(116,185,255,0.3);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(116,185,255,0.25);
-        }
-        .play-main {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg,#74b9ff,#a29bfe);
-            color: #fff;
-        }
-        /* 歌单样式 */
         .list-title {
             margin: 0 0 20px;
             color: #a29bfe;
@@ -153,65 +88,32 @@
     <div class="container">
         <h2>音乐合集</h2>
         <div class="music-card">
-            <!-- 旋转唱片 -->
-            <div class="disc-wrap">
-                <div class="disc" id="disc"></div>
-            </div>
-
-            <div class="song-name" id="songName">等待播放</div>
+            <div class="song-name" id="songName">点击下方歌单播放音乐</div>
             <div class="song-desc">轻听舒缓 · 沉浸式背景音乐</div>
-
-            <div class="ctrl-box">
-                <button class="ctrl-btn" onclick="playerCmd('prev')">⏮</button>
-                <button class="ctrl-btn play-main" id="playBtn" onclick="togglePlay()">▶</button>
-                <button class="ctrl-btn" onclick="playerCmd('next')">⏭</button>
-            </div>
 
             <h3 class="list-title">📜 全部歌单</h3>
             <div id="songList">
-                <div class="song-item" onclick="playerCmd('load',0)">纯音乐 01</div>
-                <div class="song-item" onclick="playerCmd('load',1)">治愈单曲 02</div>
-                <div class="song-item" onclick="playerCmd('load',2)">轻音乐 03</div>
-                <div class="song-item" onclick="playerCmd('load',3)">首页背景音乐</div>
+                <div class="song-item" onclick="playSong(0)">纯音乐 01</div>
+                <div class="song-item" onclick="playSong(1)">治愈单曲 02</div>
+                <div class="song-item" onclick="playSong(2)">轻音乐 03</div>
+                <div class="song-item" onclick="playSong(3)">首页背景音乐</div>
             </div>
         </div>
-        <a href="index.html" class="back-btn">← 返回首页</a>
+        <a href="home.html" class="back-btn">← 返回首页</a>
     </div>
 
-<!-- 全局播放器iframe 跨页不断播 -->
-<iframe id="playerIframe" src="player.html" style="display:none;"></iframe>
-<script>
-const player=document.getElementById('playerIframe');
-const disc = document.getElementById('disc');
-const playBtn = document.getElementById('playBtn');
-
-// 发送播放指令
-function playerCmd(type,idx){
-  player.contentWindow.postMessage({type,idx},'*');
-}
-
-// 播放暂停切换 + 唱片动画
-let isPlay = false;
-function togglePlay(){
-    if(!isPlay){
-        playerCmd('play');
-        playBtn.innerText = "⏸";
-        disc.classList.add("play");
-    }else{
-        playerCmd('pause');
-        playBtn.innerText = "▶";
-        disc.classList.remove("play");
-    }
-    isPlay = !isPlay;
-}
-
-// 同步歌曲名称
-window.addEventListener('message',e=>{
-  if(e.data&&e.data.type==='song'){
-    let el=document.getElementById('songName');
-    if(el)el.innerText=e.data.name;
-  }
-});
-</script>
+    <script>
+        // 发送指令给全局播放器
+        function playSong(index) {
+            // 发送消息给父页面（index.html里的播放器）
+            window.parent.postMessage({
+                type: 'playSong',
+                index: index
+            }, '*');
+            // 更新当前页面的歌名显示
+            const songNames = ["纯音乐 01", "治愈单曲 02", "轻音乐 03", "首页背景音乐"];
+            document.getElementById('songName').innerText = songNames[index];
+        }
+    </script>
 </body>
 </html>

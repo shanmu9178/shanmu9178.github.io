@@ -5,168 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>一个不知名的小破站</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            font-family: "Microsoft Yahei", system-ui, sans-serif;
-            padding: 40px 15px;
-        }
-        .container {
-            max-width: 650px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            font-size: 30px;
-            letter-spacing: 2px;
-            margin-bottom: 45px;
-            background: linear-gradient(90deg, #74b9ff, #a29bfe);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .menu-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 18px 22px;
-            margin-bottom: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .menu-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
+        * {margin: 0;padding: 0;box-sizing: border-box;}
+        body {background: linear-gradient(135deg, #1a1a2e, #16213e);min-height: 100vh;}
+        /* 主页面容器 */
+        #mainFrame {width: 100%;height: calc(100vh - 80px);border: none;}
+        /* 底部固定播放器栏 */
+        .player-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.15), transparent);
-            transition: 0.6s;
-        }
-        .menu-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba116, 185, 255, 0.35;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-            background: rgba(116, 185, 255, 0.08);
-        }
-        .menu-card:hover::before {
-            left: 100%;
-        }
-        .card-title {
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 6px;
+            height: 80px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 20px;
+            z-index: 9999;
         }
-        .card-desc {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.55);
-            line-height: 1.6;
-            padding-left: 28px;
-        }
-        .music-wrap {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .music-btn {
-            padding: 11px 28px;
-            border-radius: 50px;
-            border: none;
-            background: rgba(116, 185, 255, 0.18);
+        .player-btn {
+            background: rgba(116,185,255,0.2);
             color: #74b9ff;
-            font-size: 14px;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
             cursor: pointer;
             transition: 0.3s;
         }
-        .music-btn:hover {
-            background: rgba(116, 185, 255, 0.35);
-            transform: scale(1.05);
-        }
-        @media (max-width: 768px) {
-            h1 {font-size: 24px;}
-            .card-title {font-size: 16px;}
-        }
+        .player-btn:hover {background: rgba(116,185,255,0.4);}
+        .song-title {color: #fff;}
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>一个不知名的小破站</h1>
+    <!-- 主页面内容：所有子页面都在这里加载 -->
+    <iframe id="mainFrame" src="home.html"></iframe>
 
-        <div class="menu-card" onclick="location.href='photo.html'">
-            <div class="card-title">📷 照片相册</div>
-            <div class="card-desc">生活碎片、随手记录、各类截图与图集分类展示。</div>
-        </div>
-        <div class="menu-card" onclick="location.href='comment.html'">
-            <div class="card-title">💬 留言讨论</div>
-            <div class="card-desc">在线留言互动区，自由吐槽交流，记录想法。</div>
-        </div>
-        <div class="menu-card" onclick="location.href='music.html'">
-            <div class="card-title">🎵 音乐页面</div>
-            <div class="card-desc">多首音乐合集，支持切歌、循环、沉浸式听歌。</div>
-        </div>
-        <div class="menu-card" onclick="location.href='soft.html'">
-            <div class="card-title">💻 软件分享</div>
-            <div class="card-desc">自用优质软件、工具资源，无广告纯净分享。</div>
-        </div>
-        <div class="menu-card" onclick="location.href='link.html'">
-            <div class="card-title">🌐 网站合集</div>
-            <div class="card-desc">精选宝藏网站汇总，学习娱乐工具一网打尽。</div>
-        </div>
-        <div class="menu-card" onclick="location.href='tool.html'">
-            <div class="card-title">🛠️ 实用工具</div>
-            <div class="card-desc">在线小工具合集，满足日常简单使用需求。</div>
-        </div>
-        <div class="menu-card" onclick="location.href='about.html'">
-            <div class="card-title">👤 关于本站</div>
-            <div class="card-desc">站点介绍、搭建说明、更新日志与碎碎念。</div>
-        </div>
-
-        <div class="music-wrap">
-            <button class="music-btn" id="audioBtn">播放音乐</button>
-        </div>
+    <!-- 底部固定播放器（永远不消失） -->
+    <div class="player-bar">
+        <div class="song-title" id="songTitle">等待播放</div>
+        <button class="player-btn" id="prevBtn">⏮</button>
+        <button class="player-btn" id="playBtn">▶</button>
+        <button class="player-btn" id="nextBtn">⏭</button>
     </div>
 
-    <audio id="bgMusic" loop preload="auto">
-        <source src="assets/bgm.mp3" type="audio/mpeg">
-    
+    <!-- 核心：全局播放器，永远在后台 -->
+    <audio id="bgAudio" loop>
 
     <script>
-        const bgMusic = document.getElementById('bgMusic');
-        const audioBtn = document.getElementById('audioBtn');
-        let audioState = false;
-        audioBtn.addEventListener('click', function () {
-            audioState ? (bgMusic.pause(),audioBtn.innerText='播放音乐') : (bgMusic.play(),audioBtn.innerText='暂停音乐');
-            audioState = !audioState;
-        })
-        document.addEventListener('click', ()=>{
-            if(!audioState){bgMusic.play();audioBtn.innerText='暂停音乐';audioState=true;}
-        },{once:true});
-    </script>
-    <!-- 全局播放器iframe（隐藏） -->
-<iframe id="playerIframe" src="player.html" style="display:none;"></iframe>
-<script>
-const player=document.getElementById('playerIframe');
-// 发指令给播放器
-function playerCmd(type,idx){
-  player.contentWindow.postMessage({type,idx},'*');
-}
-// 接收播放器发来的歌名更新
-window.addEventListener('message',e=>{
-  if(e.data&&e.data.type==='song'){
-    let el=document.getElementById('songName');
-    if(el)el.innerText=e.data.name;
-  }
-});
-</script>
+        // 歌单配置，在这里添加你的所有歌曲
+        const songList = [
+            {name:"纯音乐 01", src:"assets/music1.mp3"},
+            {name:"治愈单曲 02", src:"assets/music2.mp3"},
+            {name:"轻音乐 03", src:"assets/music3.mp3"},
+            {name:"首页背景音乐", src:"assets/bgm.mp3"}
+        ];
+        let currentIndex = 0;
+        const audio = document.getElementById('bgAudio');
+        const songTitle = document.getElementById('songTitle');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let isPlaying = false;
 
+        // 加载歌曲
+        function loadSong(index) {
+            currentIndex = index;
+            audio.src = songList[index].src;
+            songTitle.innerText = songList[index].name;
+            audio.play();
+            isPlaying = true;
+            playBtn.innerText = "⏸";
+        }
+
+        // 播放/暂停
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerText = "▶";
+                isPlaying = false;
+            } else {
+                audio.play();
+                playBtn.innerText = "⏸";
+                isPlaying = true;
+            }
+        });
+
+        // 上一首
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + songList.length) % songList.length;
+            loadSong(currentIndex);
+        });
+
+        // 下一首
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % songList.length;
+            loadSong(currentIndex);
+        });
+
+        // 子页面发送切歌指令（比如music.html里点击歌单）
+        window.addEventListener('message', (e) => {
+            if (e.data && e.data.type === 'playSong') {
+                loadSong(e.data.index);
+            }
+        });
+    </script>
 </body>
 </html>
